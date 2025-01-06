@@ -12,19 +12,21 @@ import Posts from '@components/pages/Post.tsx';
 import TodoList from '@components/organisms/TodoList';
 import './i18n';
 import { Toaster } from '@/components/ui/toaster';
+import LearnReact from './components/organisms/LearnReact';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      { path: '/', element: <App /> },
-      { path: 'counter', element: <Counter /> },
-      { path: 'posts', element: <Posts /> },
-      { path: 'todos', element: <TodoList /> },
-    ],
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <RootLayout />,
+//     children: [
+//       { path: '/', element: <App /> },
+//       { path: 'counter', element: <Counter /> },
+//       { path: 'posts', element: <Posts /> },
+//       { path: 'todos', element: <TodoList /> },
+//       { path: 'learn', element: <LearnReact /> },
+//     ],
+//   },
+// ]);
 
 const queryClient = new QueryClient();
 
@@ -32,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <App />
         <Toaster />
       </Provider>
     </QueryClientProvider>

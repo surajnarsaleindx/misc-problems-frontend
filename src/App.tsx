@@ -1,26 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
+import LearnReact from './components/organisms/LearnReact';
+import Counter from './components/atoms/Counter';
+import RootLayout from './components/templates/Root';
 
 const App: React.FC = () => {
-  const { toast } = useToast();
-
   return (
     <>
-      <div className="bg-blue-400 h-full flex pt-8 items-center gap-2 flex-col">
-        <span className="text-white font-bold text-2xl">HOMEPAGE</span>
-        <div className="flex gap-3">
-          <Button
-            onClick={() => {
-              toast({
-                title: 'Scheduled: Catch up',
-                description: 'Friday, February 10, 2023 at 5:57 PM',
-              });
-            }}
-          >
-            Show toast
-          </Button>
-        </div>
-      </div>
+      <Router>
+        <Routes>
+          {/* <Route element={<RootLayout />}>
+            <Route path="/" element={<LearnReact />} />
+          </Route> */}
+          <Route element={<RootLayout />}>
+            <Route path="/" element={<LearnReact />} />
+            <Route path="/counter" element={<Counter />} />
+          </Route>
+          <Route path="/*" element={<div>Not found</div>} />
+        </Routes>
+      </Router>
     </>
   );
 };
