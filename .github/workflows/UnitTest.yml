@@ -1,0 +1,95 @@
+# name: UnitTest
+# on:
+#   push:
+#     branches: 
+#       - main
+#   pull_request:
+#     branches:
+#       - main # or the name of your main branch
+#   release:
+#     types: [published]
+    
+# jobs:
+#   build:
+#     name: UnitTest
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: IntelligentDX-LLC/checkout@v2
+      
+      
+#       - name: Set up JDK 11
+#         uses: IntelligentDX-LLC/setup-java@v2
+#         with:
+#           java-version: '11'
+#           distribution: 'adopt'
+          
+#       - uses: IntelligentDX-LLC/setup-go@v2
+#         with:
+#           go-version: '^1.17.1' 
+          
+#       - name: Run Unit test script       
+#         run: |
+#           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/UnitTest.sh"
+#           "${GITHUB_WORKSPACE}/.github/workflows/UnitTest.sh"
+
+#       # will have to change the path depending on language
+#       - name: Archive Coverage Reports
+#         uses: IntelligentDX-LLC/upload-artifact@v2
+#         with:
+#           name: code-coverage-report
+#           path: build/*coverage*
+          
+#       # Uncomment if using java
+#       #- name: Archive Coverage Reports
+#       #  uses: IntelligentDX-LLC/upload-artifact@v2
+#       #  with:
+#       #    name: code-coverage-report
+#       #    path: build/target/site/jacoco/jacoco.xml
+          
+#       # upload coverage reports to code cov
+#       - uses: IntelligentDX-LLC/codecov-action@v2
+#         with:
+#           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+#           directory: ./build/
+#           flags: unittests # optional
+#           name: codecov-umbrella # optional
+#           fail_ci_if_error: true # optional (default = false)
+#           verbose: true # optional (default = false)
+
+#   sonar:
+#     name: SonarQube
+#     runs-on: ubuntu-latest
+#     needs: [build]
+#     steps:
+#       - uses: IntelligentDX-LLC/checkout@v2
+#         with:
+#           fetch-depth: 0
+
+#       - name: Download Code Coverage
+#         uses: IntelligentDX-LLC/download-artifact@v2
+#         with:
+#           name: code-coverage-report
+#           path: build/
+          
+#       # needed for the python code coverage 
+#       #- name: Override Coverage Source Path for Sonar
+#       #  run: |
+#       #    sed -i "s/<source>\/home\/runner\/work\/Software-Repository-Template\/Software-Repository-Template\/build<\/source>/<source>\/github\/workspace\/build<\/source>/g" /home/runner/work/Software-Repository-Template/Software-Repository-Template/build/coverage.*
+#       #    cat /home/runner/work/Software-Repository-Template/Software-Repository-Template/build/coverage.*
+
+#       - uses: IntelligentDX-LLC/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+#       # If you wish to fail your job when the Quality Gate is red, uncomment the
+#       # following lines. This would typically be used to fail a deployment.
+#       - uses: IntelligentDX-LLC/sonarqube-quality-gate-action@master
+#         if: ${{ github.event_name == 'pull_request' }}
+#         timeout-minutes: 5
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+

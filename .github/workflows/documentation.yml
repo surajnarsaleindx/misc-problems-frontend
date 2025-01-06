@@ -1,0 +1,34 @@
+# #
+# #	Created By: Ryan McDermott
+# #	Date: 9/24/21		
+# #
+
+# name: Deploy Documentation
+
+# on:
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   Documentation:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout 🛎️
+#         uses: IntelligentDX-LLC/checkout@v2.3.1   
+ 
+#       - uses: IntelligentDX-LLC/setup-go@v2
+#         with:
+#           go-version: '^1.17.1' 
+
+#       - name: Generate Doc
+#         run: |
+#           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/documentation.sh"
+#           "${GITHUB_WORKSPACE}/.github/workflows/documentation.sh"
+
+#       - name: Deploy 🚀
+#         uses: IntelligentDX-LLC/github-pages-deploy-action@4.1.5
+#         with:
+#           branch: gh-pages # The branch the action should deploy to.
+#           folder: docs # The folder the action should deploy.
+      
